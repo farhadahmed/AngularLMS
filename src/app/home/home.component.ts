@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { CourseIconComponent } from "../course-icon/course-icon.component";
+import { CourseIcon } from '../course-icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CourseIconComponent],
+  imports: [CommonModule, CourseIconComponent],
   template: `
     <section>
         <form>
@@ -13,11 +15,102 @@ import { CourseIconComponent } from "../course-icon/course-icon.component";
         </form>
     </section>
     <section class="results">
-      <app-course-icon></app-course-icon>
+      <app-course-icon *ngFor="let courseIcon of courseIconList" [courseIcon] = "courseIcon"></app-course-icon>
     </section>
   `,
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  courseIconList: CourseIcon[] = [
+    {
+      id: 0,
+      name: '101 Web Dev Basics',
+      city: 'Chicago',
+      state: 'IL',
+      photo: '/assets/101WebDevBasics.jpg',
+      availableSeats: 4,
+      remoteLearning: true
+    },
+    {
+      id: 1,
+      name: '201 Web Dev Fundamentals',
+      city: 'Santa Monica',
+      state: 'CA',
+      photo: '/assets/201WebDevFundamentals.jpg',
+      availableSeats: 0,
+      remoteLearning: false
+    },
+    {
+      id: 2,
+      name: '301 Advanced Web Dev',
+      city: 'Juneau',
+      state: 'AK',
+      photo: '/assets/301AdvancedWebDev.jpg',
+      availableSeats: 1,
+      remoteLearning: false
+    },
+    {
+      id: 3,
+      name: '202 Java Fundamentals',
+      city: 'Chicago',
+      state: 'IL',
+      photo: '/assets/202JavaFundamentals.jpg',
+      availableSeats: 1,
+      remoteLearning: true
+    },
+    {
+      id: 4,
+      name: '302 Java and Spring Boot',
+      city: 'Gary',
+      state: 'IN',
+      photo: '/assets/302JavaSpringBoot.jpg',
+      availableSeats: 1,
+      remoteLearning: true
+    },
+    {
+      id: 5,
+      name: '402 Java and AWS',
+      city: 'Oakland',
+      state: 'CA',
+      photo: '/assets/402JavaAWS.jpg',
+      availableSeats: 2,
+      remoteLearning: true
+    },
+    {
+      id: 6,
+      name: '501 Cloud Computing and AWS',
+      city: 'Oakland',
+      state: 'CA',
+      photo: '/assets/501AWS.jpg',
+      availableSeats: 5,
+      remoteLearning: true
+    },
+    {
+      id: 7,
+      name: '502 Data Structures and Algos',
+      city: 'Oakland',
+      state: 'CA',
+      photo: '/assets/502DataStructuresAndAlgos.jpg',
+      availableSeats: 2,
+      remoteLearning: true
+    },
+    {
+      id: 8,
+      name: '503 Machine Learning Fundamentals',
+      city: 'Oakland',
+      state: 'CA',
+      photo: '/assets/503MachineLearning.jpg',
+      availableSeats: 10,
+      remoteLearning: false
+    },
+    {
+      id: 9,
+      name: '504 Advanced AI and Machine Learning',
+      city: 'Portland',
+      state: 'OR',
+      photo: '/assets/504AdvancedAiAndMl.jpg',
+      availableSeats: 6,
+      remoteLearning: true
+    }
+  ];
 }
