@@ -8,10 +8,11 @@ import { HomeComponent } from "./home/home.component";
   imports: [RouterOutlet, HomeComponent],
   template:`
     <main>
-      <header>
+      <header class="brand-name">
       </header>
-      <section>
-        <app-home></app-home>
+      <section class="content">
+        <router-outlet></router-outlet>
+        <!-- <app-home></app-home> -->
       </section>
     </main>
   `,
