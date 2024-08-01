@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <section>
+    <section class="listing">
       <img class="listing-photo" [src]="courseIcon.photo" alt="Exterior photo of {{courseIcon.name}}">
       <h2 class="listing-heading">{{ courseIcon.name }}</h2>
       <p class="listing-location">{{ courseIcon.city }}, {{ courseIcon.state }}</p>
