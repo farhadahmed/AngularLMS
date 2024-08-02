@@ -54,7 +54,10 @@ export class DetailsComponent {
 
   constructor() {
     const courseIconId = Number(this.route.snapshot.params["id"]);
-    this.courseIcon = this.coursesService.getHousingLocationById(courseIconId);
+    this.coursesService.getCourseById(courseIconId).then(courseIcon => {
+      this.courseIcon = courseIcon;
+    });
+    // this.courseIcon = this.coursesService.getCourseById(courseIconId);
   }
 
   submitApplication() {

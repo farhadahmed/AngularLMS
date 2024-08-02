@@ -16,7 +16,7 @@ import { CoursesService } from '../courses.service';
         </form>
     </section>
     <section class="results">
-      <app-course-icon *ngFor="let courseIcon of courseIconList" [courseIcon] = "courseIcon"></app-course-icon>
+      <app-course-icon *ngFor="let courseIcon of courseIconList" [courseIcon]="courseIcon"></app-course-icon>
     </section>
   `,
   styleUrl: './home.component.css'
@@ -26,6 +26,9 @@ export class HomeComponent {
   coursesService: CoursesService = inject(CoursesService);
 
   constructor() {
-    this.courseIconList = this.coursesService.getAllCourses();
+    this.coursesService.getAllCourses().then((courseIconList: CourseIcon[]) => {
+      this.courseIconList = courseIconList;
+    });
+    // this.courseIconList = this.coursesService.getAllCourses();
   }
 }

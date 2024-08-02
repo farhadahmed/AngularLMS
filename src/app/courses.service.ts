@@ -5,108 +5,46 @@ import { CourseIcon } from './course-icon';
   providedIn: 'root'
 })
 export class CoursesService {
-  protected courseIconList: CourseIcon[] = [
-    {
-      id: 0,
-      name: '101 Web Dev Basics',
-      city: 'Chicago',
-      state: 'IL',
-      photo: '/assets/101WebDevBasics.jpg',
-      availableSeats: 4,
-      remoteLearning: true
-    },
-    {
-      id: 1,
-      name: '201 Web Dev Fundamentals',
-      city: 'Santa Monica',
-      state: 'CA',
-      photo: '/assets/201WebDevFundamentals.jpg',
-      availableSeats: 0,
-      remoteLearning: false
-    },
-    {
-      id: 2,
-      name: '301 Advanced Web Dev',
-      city: 'Juneau',
-      state: 'AK',
-      photo: '/assets/301AdvancedWebDev.jpg',
-      availableSeats: 1,
-      remoteLearning: false
-    },
-    {
-      id: 3,
-      name: '202 Java Fundamentals',
-      city: 'Chicago',
-      state: 'IL',
-      photo: '/assets/202JavaFundamentals.jpg',
-      availableSeats: 1,
-      remoteLearning: true
-    },
-    {
-      id: 4,
-      name: '302 Java and Spring Boot',
-      city: 'Gary',
-      state: 'IN',
-      photo: '/assets/302JavaSpringBoot.jpg',
-      availableSeats: 1,
-      remoteLearning: true
-    },
-    {
-      id: 5,
-      name: '402 Java and AWS',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/402JavaAWS.jpg',
-      availableSeats: 2,
-      remoteLearning: true
-    },
-    {
-      id: 6,
-      name: '501 Cloud Computing and AWS',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/501AWS.jpg',
-      availableSeats: 5,
-      remoteLearning: true
-    },
-    {
-      id: 7,
-      name: '502 Data Structures and Algos',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/502DataStructuresAndAlgos.jpg',
-      availableSeats: 2,
-      remoteLearning: true
-    },
-    {
-      id: 8,
-      name: '503 Machine Learning Fundamentals',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/503MachineLearning.jpg',
-      availableSeats: 10,
-      remoteLearning: false
-    },
-    {
-      id: 9,
-      name: '504 Advanced AI and Machine Learning',
-      city: 'Portland',
-      state: 'OR',
-      photo: '/assets/504AdvancedAiAndMl.jpg',
-      availableSeats: 6,
-      remoteLearning: true
-    }
-  ];
+  // url = 'http://localhost:3000/courses';
+  url = 'https://api.jsonbin.io/v3/b/66abeb39e41b4d34e41a5f71';
+  readOnlyAccessKey = '$2a$10$Zd9YIbBufChoPqkz8wiU9Of2zuyelyHxbX0B6isKdySGI3/QHxZPq';
 
   constructor() { }
 
-  getAllCourses() : CourseIcon[] {
-    return this.courseIconList;
+  async getAllCourses() : Promise<CourseIcon[]> {
+    try {
+      const response = fetch(this.url, {
+      method: "GET",
+      headers: {
+        'X-Access-Key': this.readOnlyAccessKey
+      },
+      redirect: "follow"
+      });
+
+      let data = (JSON.parse(await (await response).text())).record.courses;
+      console.log(data);
+      return data;
+    }
+    catch (error) {
+      console.log('Error fetching courses: ', error);
+      return [];
+    }
   }
 
-  getHousingLocationById(id: Number): CourseIcon | undefined {
-    return this.courseIconList.find(courseIcon => courseIcon.id === id);
+  // The below function works if we keep the array of courses in this service.
+  // getAllCourses() : CourseIcon[] {
+  //   return this.courseIconList;
+  // }
+
+  async getCourseById(id: Number): Promise<CourseIcon | undefined> {
+    const data = await fetch(`${this.url}/${id}`);
+    return await data.json() ?? {};
   }
+
+  // The below function works if we keep the array of courses in this service.
+  // getCourseLocationById(id: Number): CourseIcon | undefined {
+  //   return this.courseIconList.find(courseIcon => courseIcon.id === id);
+  // }
 
   submitApplication(firstName: string, lastName: string, email: string) {
     console.log(firstName, lastName, email);
