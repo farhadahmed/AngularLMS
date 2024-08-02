@@ -22,7 +22,6 @@ export class CoursesService {
       });
 
       let data = (JSON.parse(await (await response).text())).record.courses;
-      console.log(data);
       return data;
     }
     catch (error) {
@@ -37,8 +36,23 @@ export class CoursesService {
   // }
 
   async getCourseById(id: Number): Promise<CourseIcon | undefined> {
-    const data = await fetch(`${this.url}/${id}`);
-    return await data.json() ?? {};
+    try {
+      const response = fetch(this.url, {
+      method: "GET",
+      headers: {
+        'X-Access-Key': this.readOnlyAccessKey
+      },
+      redirect: "follow"
+      });
+
+      let data = (JSON.parse(await (await response).text())).record.courses;
+      console.log(data)
+      return data.find((item: { id: number; }) => item.id === id);
+    }
+    catch (error) {
+      console.log('Error fetching courses: ', error);
+      return;
+    }
   }
 
   // The below function works if we keep the array of courses in this service.
