@@ -1,5 +1,21 @@
 # AngularLMS
 
+A simple LMS demo using Angular 17. On the home page, listed courses are retrieved from jsonbin.io via their REST API. Clicking on a course then takes the user to the details page. Here we again use JS promises to send a get request and display information for the course with the matching ID. The Access Key is visible but it's safe since it only has read permission.
+
+## App Demo
+
+The app has been deployed on AWS and can be tested here: https://master.d316e6rc2vihw4.amplifyapp.com/ 
+
+## Technologies and features used.
+* JavaScript
+* Angular 17
+* TypeScript
+* HTML
+* CSS
+* Fetch API
+* Promises
+* Async/await
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
 
 ## Development server
