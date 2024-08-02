@@ -10,6 +10,7 @@ import { CoursesService } from '../courses.service';
   imports: [CommonModule, CourseIconComponent],
   template: `
     <section>
+      <h1>Farhad's Simple Online School</h1>
         <form>
           <input type="text" placeholder="Filter by city" #filter/>
           <button class="primary" type="button">Search</button>
