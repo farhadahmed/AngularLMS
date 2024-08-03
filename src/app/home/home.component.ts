@@ -12,12 +12,12 @@ import { CoursesService } from '../courses.service';
     <section>
       <h1>Farhad's Simple Online School</h1>
         <form>
-          <input type="text" placeholder="Filter by city" #filter/>
-          <button class="primary" type="button">Search</button>
+          <input type="text" placeholder="Filter by course" #filter/>
+          <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
         </form>
     </section>
     <section class="results">
-      <app-course-icon *ngFor="let courseIcon of courseIconList" [courseIcon]="courseIcon"></app-course-icon>
+      <app-course-icon *ngFor="let courseIcon of filteredCourseList" [courseIcon]="courseIcon"></app-course-icon>
     </section>
   `,
   styleUrl: './home.component.css'
@@ -25,11 +25,20 @@ import { CoursesService } from '../courses.service';
 export class HomeComponent {
   courseIconList: CourseIcon[] = [];
   coursesService: CoursesService = inject(CoursesService);
+  filteredCourseList:CourseIcon[] = [];
 
   constructor() {
     this.coursesService.getAllCourses().then((courseIconList: CourseIcon[]) => {
       this.courseIconList = courseIconList;
+      this.filteredCourseList = courseIconList;
     });
-    // this.courseIconList = this.coursesService.getAllCourses();
+  }
+
+  filterResults(text: string) {
+    if (!text) this.filteredCourseList = this.courseIconList;
+
+    this.filteredCourseList = this.courseIconList.filter(
+      courseIcon => courseIcon?.name.toLowerCase().includes(text.toLowerCase())
+    );
   }
 }
